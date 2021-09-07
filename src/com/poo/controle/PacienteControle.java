@@ -1,5 +1,7 @@
 package com.poo.controle;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.poo.modelo.Paciente;
 import com.poo.modelo.dao.PacienteDao;
 import com.poo.modelo.dao.PersistenciaException;
@@ -21,11 +23,11 @@ public class PacienteControle {
 			if(paciente==null)
 				throw new ControleExcption("Nenhum paciente informado");
 
-			if(paciente.getCPF()==null || paciente.getCPF().isBlank())
-				throw new ControleExcption("CPF do paciente não informado");
+			if(StringUtils.isBlank(paciente.getCPF()))
+				throw new ControleExcption("CPF do paciente nï¿½o informado");
 
-			if(paciente.getNome()==null || paciente.getNome().isBlank())
-				throw new ControleExcption("Nome do paciente não informado");
+			if(StringUtils.isAllBlank(paciente.getNome()))
+				throw new ControleExcption("Nome do paciente nï¿½o informado");
 
 			dao.salva(paciente);
 		} catch (ControleExcption  e) {

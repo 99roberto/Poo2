@@ -1,5 +1,7 @@
 package com.poo.controle;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.poo.modelo.AlaHospial;
 import com.poo.modelo.Atendimento;
 import com.poo.modelo.Consulta;
@@ -26,11 +28,11 @@ public class ConsultaControle extends HospitalControle {
 	public String internar(Consulta consulta) throws ControleExcption {
 
 		try {
-			if(consulta.getAla()==null)
+			if (consulta.getAla() == null)
 				throw new ControleExcption("Nenhuma ala informada");
-			
+
 			removeFilaAtendimento(consulta);
-			
+
 			AlaHospial ala = getHospital().getAlas().get(consulta.getAla());
 			String msg = "";
 			if (ala.temVaga()) {
@@ -38,8 +40,8 @@ public class ConsultaControle extends HospitalControle {
 				msg = "Paciente internado na ala " + ala.getAla();
 			} else {
 				ala.adFila(consulta.getCpf());
-				msg = "Paciente adicionado na fila da ala " + ala.getAla() + " \nPosição na fila da ala: "
-						+ ala.getFilaEspera().size() + " \nPosição na fila da enfermagem: "
+				msg = "Paciente adicionado na fila da ala " + ala.getAla() + " \nPosiï¿½ï¿½o na fila da ala: "
+						+ ala.getFilaEspera().size() + " \nPosiï¿½ï¿½o na fila da enfermagem: "
 						+ getHospital().getFilaEmfermagem().size();
 
 			}
@@ -48,24 +50,24 @@ public class ConsultaControle extends HospitalControle {
 			return msg;
 		} catch (ControleExcption e) {
 			throw e;
-		}catch (Exception e) {e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 			resturarHospital();
-			throw new ControleExcption("Erro ao gerar internação: " + e.getCause());
+			throw new ControleExcption("Erro ao gerar internaï¿½ï¿½o: " + e.getCause());
 		}
 	}
 
 	private void removeFilaAtendimento(Consulta consulta) throws ControleExcption {
-		if (consulta.getCpf() == null || consulta.getCpf().isBlank() || consulta.getNome() == null
-				|| consulta.getNome().isBlank())
+		if (StringUtils.isBlank(consulta.getCpf()) || StringUtils.isBlank(consulta.getNome()))
 			throw new ControleExcption("Informe todos os dados do paciente");
 
 		getHospital().getfAtendimento().remove(consulta.getCpf());
 	}
-	
+
 	public void finalizaConsulta(Consulta consulta) throws ControleExcption {
 		try {
 			removeFilaAtendimento(consulta);
-			
+
 			consultaDao.salva(consulta);
 			hospitalDao.salva(getHospital());
 		} catch (ControleExcption e) {

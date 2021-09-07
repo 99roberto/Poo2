@@ -19,6 +19,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.poo.controle.AtendimentoControle;
 import com.poo.controle.ControleExcption;
 import com.poo.modelo.Atendimento;
@@ -40,23 +42,23 @@ public class GeraAtendimento extends IInternalFrame {
 
 	/*
 	 * Para o item de menu Gerenciar paciente, a tela deve apresentar um campo
-	 * CPF, o qual será utilizado para verificar se o paciente já possui cadastro
+	 * CPF, o qual serï¿½ utilizado para verificar se o paciente jï¿½ possui cadastro
 	 * (ler arquivo pacientes.txt).
 	 */
 	private MTextField cpfTextField;
 	// nome
 	private JTextField nomeTextField;
 
-	// i) data e horário da entrada na emergencia,
+	// i) data e horï¿½rio da entrada na emergencia,
 	private MDateTimeField dtaEntrada;
 
-	// ii) descrição do problema de saúde (queixa),
+	// ii) descriï¿½ï¿½o do problema de saï¿½de (queixa),
 	private JTextArea queixaTextArea;
 	// iii) prioridade de atendimento numa escala de 1 a 5,
 	private JComboBox<Integer> prioridadeCb;
-	// iv) ala de internação
+	// iv) ala de internaï¿½ï¿½o
 	private JComboBox<Object> alaCb;
-	// v) observações. Devem
+	// v) observaï¿½ï¿½es. Devem
 	private JTextField obsTextField;
 	private MJButton limparBtn;
 	private MJButton cadastrarBtn;
@@ -100,7 +102,7 @@ public class GeraAtendimento extends IInternalFrame {
 
 		// linha 2
 		panelForm.add(new JLabel("Entrada"), "flowx,cell 1 3,growy");
-		panelForm.add(new JLabel("Observação"), "flowx,cell 3 3,growy");
+		panelForm.add(new JLabel("Observaï¿½ï¿½o"), "flowx,cell 3 3,growy");
 		panelForm.add(dtaEntrada, "cell 1 3,grow");
 		panelForm.add(obsTextField, "cell 3 3,grow");
 
@@ -153,7 +155,7 @@ public class GeraAtendimento extends IInternalFrame {
 		nomeTextField.setEditable(false);
 		String cpf = cpfTextField.getApenasFigitos();
 		try {
-			if(cpf==null || cpf.isBlank())
+			if(StringUtils.isBlank(cpf))
 				return;
 			
 			cadastrarBtn.setEnabled(false);

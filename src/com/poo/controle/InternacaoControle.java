@@ -3,6 +3,8 @@ package com.poo.controle;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.poo.modelo.AlaHospial;
 import com.poo.modelo.Atendimento;
 import com.poo.modelo.dao.AtendimentoDao;
@@ -41,13 +43,13 @@ public class InternacaoControle extends HospitalControle {
 	public void internar(Atendimento atendimento) throws ControleExcption {
 
 		try {
-			if (atendimento.getCpf() == null || atendimento.getCpf().isBlank())
+			if (StringUtils.isBlank(atendimento.getCpf()))
 				throw new ControleExcption("Informe todos os dados do paciente");
 
 			getHospital().getfAtendimento().remove(atendimento.getCpf());
 			AlaHospial ala = getHospital().getAlas().get(atendimento.getAla());
 			if (!ala.temVaga()) {
-				throw new ControleExcption("Não há vagas na ala " + ala.getAla());
+				throw new ControleExcption("Nï¿½o hï¿½ vagas na ala " + ala.getAla());
 			}
 			ala.internar(atendimento.getCpf());
 			getHospital().getFilaEmfermagem().remove(atendimento.getCpf());
@@ -57,7 +59,7 @@ public class InternacaoControle extends HospitalControle {
 			throw e;
 		} catch (Exception e) {
 			resturarHospital();
-			throw new ControleExcption("Erro ao gerar internação: " + e.getCause());
+			throw new ControleExcption("Erro ao gerar internaï¿½ï¿½o: " + e.getCause());
 		}
 	}
 

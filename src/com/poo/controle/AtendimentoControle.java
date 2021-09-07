@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.poo.modelo.AlaHospial;
 import com.poo.modelo.Atendimento;
 import com.poo.modelo.Paciente;
@@ -26,7 +28,7 @@ public class AtendimentoControle extends HospitalControle {
 				Atendimento atendimento = atendimentoDao.buscarAtendimentoAberto(cpf);
 				if (atendimento!=null && atendimento.getDataSaida() == null) {
 					SimpleDateFormat dtf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-					throw new ControleExcption("Já há um atendimento para esse paciente. Entrada:"
+					throw new ControleExcption("Jï¿½ hï¿½ um atendimento para esse paciente. Entrada:"
 							+ dtf.format(atendimento.getDataEntrada()));
 				}
 			}
@@ -42,11 +44,11 @@ public class AtendimentoControle extends HospitalControle {
 			if (atendiemnto == null)
 				throw new ControleExcption("Nenhum paciente informado");
 
-			if (atendiemnto.getCpf() == null || atendiemnto.getCpf().isBlank())
-				throw new ControleExcption("CPF do paciente não informado");
+			if (StringUtils.isBlank(atendiemnto.getCpf()))
+				throw new ControleExcption("CPF do paciente nÃ£o informado");
 
-			if (atendiemnto.getNome() == null || atendiemnto.getNome().isBlank())
-				throw new ControleExcption("Nome do paciente não informado");
+			if (StringUtils.isBlank(atendiemnto.getNome()))
+				throw new ControleExcption("Nome do paciente nÃ£o informado");
 
 			if (atendiemnto.getPrioridade() == 5) {
 				return internar(atendiemnto);
@@ -71,7 +73,7 @@ public class AtendimentoControle extends HospitalControle {
 
 	private String internar(Atendimento atendiemnto) throws Exception {
 		if (atendiemnto.getAla() == null)
-			throw new ControleExcption("Informe uma ala para a internação");
+			throw new ControleExcption("Informe uma ala para a internaÃ§Ã£o");
 
 		AlaHospial ala = getHospital().getAlas().get(atendiemnto.getAla());
 		boolean semVagas = false;
@@ -82,8 +84,8 @@ public class AtendimentoControle extends HospitalControle {
 		} else if (getHospital().temVagasEnfermagem()) {
 			getHospital().getFilaEmfermagem().add(atendiemnto.getCpf());
 			ala.adFila(atendiemnto.getCpf());
-			msg = "Paciente adicionado na fila da ala " + ala.getAla() + " \nPosição na fila da ala: "
-					+ ala.getFilaEspera().size() + " \nPosição na fila da enfermagem: "
+			msg = "Paciente adicionado na fila da ala " + ala.getAla() + " \nPosiï¿½ï¿½o na fila da ala: "
+					+ ala.getFilaEspera().size() + " \nPosiï¿½ï¿½o na fila da enfermagem: "
 					+ getHospital().getFilaEmfermagem().size();
 			;
 		} else {
@@ -94,7 +96,7 @@ public class AtendimentoControle extends HospitalControle {
 		atendimentoDao.salva(atendiemnto);
 		hospitalDao.salva(getHospital());
 		if (semVagas)
-			throw new Exception("Não temos vagas para internação na enfermaria. \nPor favor procure outro hospital");
+			throw new Exception("nÃ£o temos vagas para internaÃ§Ã£o na enfermaria. \nPor favor procure outro hospital");
 		System.err.println(msg);
 		return msg;
 	}
@@ -152,7 +154,7 @@ public class AtendimentoControle extends HospitalControle {
 	}
 
 	public void finalizarAtendimento(Atendimento atendimento) throws ControleExcption {
-		if (atendimento.getCpf() == null || atendimento.getCpf().isBlank())
+		if (StringUtils.isBlank(atendimento.getCpf()))
 			throw new ControleExcption("Informe todos os dados do paciente");
 		try {
 			getHospital().getFilaEmfermagem().remove(atendimento.getCpf());
