@@ -4,3 +4,4 @@ consulta.txt
 hospital.txt
 pacientes.txt
 *.log
+/target/

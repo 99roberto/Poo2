@@ -4,12 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static com.poo.teste.TesteHerlper.newConsulta;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Before;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.poo.modelo.Consulta;
 import com.poo.modelo.dao.ConsultaDao;
@@ -21,7 +24,7 @@ public class ConsultaDaoTeste {
 	private ConsultaDao dao;
 	SimpleDateFormat sd = new SimpleDateFormat("dd/MM/YYYY");
 
-	@Before
+	@BeforeEach
 	public void beforeEach() throws Exception {
 		new TesteHerlper().iniciaBase();
 		this.dao = DaoFactory.getInstae().getConsultaDao();

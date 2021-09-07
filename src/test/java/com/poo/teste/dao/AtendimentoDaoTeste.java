@@ -1,8 +1,7 @@
 package com.poo.teste.dao;
 
 import static com.poo.teste.TesteHerlper.newAtendimento;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -10,8 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.poo.modelo.Atendimento;
 import com.poo.modelo.dao.AtendimentoDao;
@@ -24,7 +23,7 @@ public class AtendimentoDaoTeste {
 	private AtendimentoDao dao;
 	SimpleDateFormat sd = new SimpleDateFormat("dd/MM/YYYY");
 
-	@Before
+	@BeforeEach
 	public void beforeEach() throws Exception {
 		new TesteHerlper().iniciaBase();
 		this.dao = DaoFactory.getInstae().getAtendimentoDao();

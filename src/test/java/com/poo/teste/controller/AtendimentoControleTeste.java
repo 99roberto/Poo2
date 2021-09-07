@@ -1,11 +1,12 @@
 package com.poo.teste.controller;
 
-import static org.junit.Assert.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.poo.controle.AtendimentoControle;
 import com.poo.controle.ControleExcption;
@@ -18,7 +19,7 @@ public class AtendimentoControleTeste {
 
 	private AtendimentoControle ctrl;
 
-	@Before
+	@BeforeEach
 	public void before() throws Exception {
 		this.ctrl = new AtendimentoControle();
 		new TesteHerlper().iniciaBase();

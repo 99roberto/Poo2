@@ -187,7 +187,7 @@ public class GeraAtendimento extends IInternalFrame {
 		atendimento.setNome(nomeTextField.getText());
 		atendimento.setDataEntrada(dtaEntrada.getDate());
 		atendimento.setQueixa(queixaTextArea.getText());
-		atendimento.setPrioridade((int) prioridadeCb.getSelectedItem());
+		atendimento.setPrioridade(  (Integer) prioridadeCb.getSelectedItem());
 		if (alaCb.getSelectedIndex() > 0)
 			atendimento.setAla((EnumAlaHospital) alaCb.getSelectedItem());
 		atendimento.setObservacao(obsTextField.getText());

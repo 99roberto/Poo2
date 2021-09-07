@@ -1,11 +1,11 @@
 package com.poo.teste.controller;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.poo.controle.ConsultaControle;
 import com.poo.modelo.Atendimento;
@@ -18,7 +18,7 @@ public class ConsultaControleTeste {
 	private ConsultaControle ctrl;
 	private ConsultaDao dao;
 
-	@Before
+	@BeforeEach
 	public void before() throws Exception {
 		this.ctrl = new ConsultaControle();
 		this.dao = new ConsultaDao();

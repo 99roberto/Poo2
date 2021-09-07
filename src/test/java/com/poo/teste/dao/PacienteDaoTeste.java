@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.text.SimpleDateFormat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.poo.modelo.Paciente;
 import com.poo.modelo.dao.DaoFactory;
@@ -18,7 +20,7 @@ public class PacienteDaoTeste {
 	private PacienteDao dao;
 	SimpleDateFormat sd = new SimpleDateFormat("dd/MM/YYYY");
 
-	@Before
+	@BeforeEach
 	public void beforeEach() throws Exception {
 		new TesteHerlper().iniciaBase();
 		this.dao = DaoFactory.getInstae().getPacienteDao();

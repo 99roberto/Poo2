@@ -1,12 +1,12 @@
 package com.poo.teste.controller;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.poo.controle.HospitalControle;
 import com.poo.modelo.AlaHospial;
@@ -16,7 +16,7 @@ public class HospitalControleTeste {
 
 	private HospitalControle ctrl;
 
-	@Before
+	@BeforeEach
 	public void before() throws Exception {
 		this.ctrl = new HospitalControle();
 		new TesteHerlper().iniciaBase();

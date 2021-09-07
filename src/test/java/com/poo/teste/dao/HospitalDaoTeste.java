@@ -1,10 +1,9 @@
 package com.poo.teste.dao;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.poo.modelo.Hospital;
 import com.poo.modelo.dao.HospitalDao;
@@ -15,7 +14,7 @@ public class HospitalDaoTeste {
 
 	private HospitalDao dao;
 
-	@Before
+	@BeforeEach
 	public void befor() throws Exception {
 		new TesteHerlper().iniciaBase();
 		this.dao = new HospitalDao();

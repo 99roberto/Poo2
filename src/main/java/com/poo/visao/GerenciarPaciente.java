@@ -142,7 +142,7 @@ public class GerenciarPaciente extends IInternalFrame {
 
 	private void buscar() {
 		nomeTextField.setEditable(false);
-		String cpf = cpfTextField.getApenasFigitos();
+		final String cpf = cpfTextField.getApenasFigitos();
 		SwingWorker<Paciente, Void> mySwingWorker = new SwingWorker<Paciente, Void>() {
 
 			@Override
