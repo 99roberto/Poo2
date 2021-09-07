@@ -34,13 +34,11 @@ public class HospitalDao extends AbstractDao<Integer, Hospital> {
 
 	@Override
 	protected Class<Hospital> getValueClass() {
-		// TODO Auto-generated method stub
 		return Hospital.class;
 	}
 
 	@Override
 	protected Class<Integer> getKeyClass() {
-		// TODO Auto-generated method stub
 		return Integer.class;
 	}
 	

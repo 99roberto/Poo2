@@ -35,13 +35,13 @@ public class AlaHospial implements Serializable {
 
 	public void internar(String cpf) throws Exception {
 		if (!temVaga())
-			throw new Exception("Não tem vaga na ala " + ala);
+			throw new Exception("NÃ£o tem vaga na ala " + ala);
 
 		leitos.add(cpf);
 		filaEspera.remove(cpf);
 	}
 
-	public void adFila(String cpf) throws Exception {
+	public void adFila(String cpf)  {
 		filaEspera.add(cpf);
 	}
 

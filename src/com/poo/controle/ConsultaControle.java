@@ -1,5 +1,7 @@
 package com.poo.controle;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.poo.modelo.AlaHospial;
@@ -67,7 +69,8 @@ public class ConsultaControle extends HospitalControle {
 	public void finalizaConsulta(Consulta consulta) throws ControleExcption {
 		try {
 			removeFilaAtendimento(consulta);
-
+			consulta.setDataTermino(new Date());
+			
 			consultaDao.salva(consulta);
 			hospitalDao.salva(getHospital());
 		} catch (ControleExcption e) {
