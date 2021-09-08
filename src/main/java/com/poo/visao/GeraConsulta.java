@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import com.poo.controle.ConsultaControle;
-import com.poo.controle.ControleExcption;
+import com.poo.controle.ControleException;
 import com.poo.modelo.Atendimento;
 import com.poo.modelo.Consulta;
 import com.poo.modelo.EnumAlaHospital;
@@ -28,39 +28,25 @@ import com.poo.visao.componentes.MTextField;
  *
  */
 public class GeraConsulta extends IInternalFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+
 	private ConsultaControle cControle = new ConsultaControle();
 	private MPanelCenter panelForm;
 
-	/*
-	 * Para o item de menu Gerenciar paciente, tela deve apresentar um campo
-	 * CPF, o qual será utilizado para verificar se o paciente já possui cadastro
-	 * (ler arquivo pacientes.txt).
-	 */
-	private MTextField cpfTextField;
-//	nome 
-	private JTextField nomeTextField;
+	private MTextField txtCpf;
+	private JTextField txtNome;
 
-	// i) a descrição do histórico de saúde (queixa)
-	private JTextArea queixaTextArea;
-	// i) avaliação do médico
-	private JTextArea avaliacaoTextArea;
-	// iii) medicação prescrita
-	private JTextArea prescricaoTextArea;
-	// iv)ala para internação e
-	private JComboBox<EnumAlaHospital> alaCb;
-	// v)observações.
+	private JTextArea areaQueixa;
+	private JTextArea areaAvaliacao;
+	private JTextArea areaPrescricao;
 	private JTextArea obsTextField;
 
-	// botão Finalizar Consulta,
-	private MJButton finalizarConsultaBtn;
-	// Encaminhar para Internação
-	private MJButton internarBtn;;
-	// Limpar Tela
-	private MJButton limparBtn;
+	private JComboBox<EnumAlaHospital> cbxAla;
+
+	private MJButton btnFfinalizarConsulta;
+	private MJButton btnInternar;;
+	private MJButton btnLimpar;
 
 	@Override
 	public String getInternalTitle() {
@@ -74,56 +60,56 @@ public class GeraConsulta extends IInternalFrame {
 		String linhas = "[grow][23px][5px,fill][50px][5px][50px][5px][50px][5px][23px][5px][50px][5px][grow,fill]";
 		panelForm = new MPanelCenter(colunas, linhas);
 
-		cpfTextField = new MTextField("###.###.###-##");
-		nomeTextField = new MTextField();
-		queixaTextArea = new JTextArea();
-		avaliacaoTextArea = new JTextArea();
-		prescricaoTextArea = new JTextArea();
-		alaCb = new JComboBox<EnumAlaHospital>();
+		txtCpf = new MTextField("###.###.###-##");
+		txtNome = new MTextField();
+		areaQueixa = new JTextArea();
+		areaAvaliacao = new JTextArea();
+		areaPrescricao = new JTextArea();
+		cbxAla = new JComboBox<EnumAlaHospital>();
 		obsTextField = new JTextArea();
 
-		nomeTextField.setColumns(10);
-		queixaTextArea.setColumns(50);
-		queixaTextArea.setRows(3);
-		queixaTextArea.setBorder(new LineBorder(new Color(171, 173, 179)));
-		avaliacaoTextArea.setBorder(new LineBorder(new Color(171, 173, 179)));
-		prescricaoTextArea.setBorder(new LineBorder(new Color(171, 173, 179)));
+		txtNome.setColumns(10);
+		areaQueixa.setColumns(50);
+		areaQueixa.setRows(3);
+		areaQueixa.setBorder(new LineBorder(new Color(171, 173, 179)));
+		areaAvaliacao.setBorder(new LineBorder(new Color(171, 173, 179)));
+		areaPrescricao.setBorder(new LineBorder(new Color(171, 173, 179)));
 		obsTextField.setBorder(new LineBorder(new Color(171, 173, 179)));
-		alaCb.setModel(new DefaultComboBoxModel<EnumAlaHospital>(EnumAlaHospital.listar()));
+		cbxAla.setModel(new DefaultComboBoxModel<EnumAlaHospital>(EnumAlaHospital.listar()));
 
-		cpfTextField.setEditable(false);
-		nomeTextField.setEditable(false);
+		txtCpf.setEditable(false);
+		txtNome.setEditable(false);
 		// linha 1
 		panelForm.add(new JLabel("CPF"), "flowx,cell 1 1,growy");
 		panelForm.add(new JLabel("Nome"), "flowx,cell 3 1,growy");
-		panelForm.add(cpfTextField, "flowx,cell 1 1,grow");
-		panelForm.add(nomeTextField, "cell 3 1,grow");
+		panelForm.add(txtCpf, "flowx,cell 1 1,grow");
+		panelForm.add(txtNome, "cell 3 1,grow");
 
 		// linha 2
 		panelForm.add(new JLabel("Queixa"), "flowx,cell 1 2 3 1");
-		panelForm.add(new JScrollPane(queixaTextArea), "cell 1 3 3 1,grow");
+		panelForm.add(new JScrollPane(areaQueixa), "cell 1 3 3 1,grow");
 		// linha 3
-		panelForm.add(new JLabel("Avaliação"), "flowx,cell 1 4 3 1");
-		panelForm.add(new JScrollPane(avaliacaoTextArea), "cell 1 5 3 1,grow");
+		panelForm.add(new JLabel("AvaliaÃ§Ã£o"), "flowx,cell 1 4 3 1");
+		panelForm.add(new JScrollPane(areaAvaliacao), "cell 1 5 3 1,grow");
 		// linha 4
-		panelForm.add(new JLabel("Medicação prescrita"), "flowx,cell 1 6 3 1");
-		panelForm.add(new JScrollPane(prescricaoTextArea), "cell 1 7 3 1,grow");
+		panelForm.add(new JLabel("MedicaÃ§Ã£o prescrita"), "flowx,cell 1 6 3 1");
+		panelForm.add(new JScrollPane(areaPrescricao), "cell 1 7 3 1,grow");
 
 		// linha 3
 		panelForm.add(new JLabel("Ala"), "flowx,cell 1 9 3 1,growy");
-		panelForm.add(alaCb, "cell 1 9 3 ,grow");
+		panelForm.add(cbxAla, "cell 1 9 3 ,grow");
 
 		// linha 3
-		panelForm.add(new JLabel("Observação"), "flowx,cell 1 10 3 1,growy");
+		panelForm.add(new JLabel("ObservaÃ§Ã£o"), "flowx,cell 1 10 3 1,growy");
 		panelForm.add(new JScrollPane(obsTextField), "cell 1 11 3 1,grow");
 
-		limparBtn = new MJButton("Limpar Tela");
-		finalizarConsultaBtn = new MJButton("Finalizar Consulta");
-		internarBtn = new MJButton("Encaminhar Internação");
+		btnLimpar = new MJButton("Limpar Tela");
+		btnFfinalizarConsulta = new MJButton("Finalizar Consulta");
+		btnInternar = new MJButton("Encaminhar InternaÃ§Ã£o");
 
-		addRodaPe(finalizarConsultaBtn);
-		addRodaPe(internarBtn);
-		addRodaPe(limparBtn);
+		addRodaPe(btnFfinalizarConsulta);
+		addRodaPe(btnInternar);
+		addRodaPe(btnLimpar);
 
 		return panelForm;
 	}
@@ -131,24 +117,27 @@ public class GeraConsulta extends IInternalFrame {
 	@Override
 	protected void addEvents() {
 
-		internarBtn.addMouseListener(new MouseAdapter() {
+		btnInternar.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				internar();
 			}
 		});
 
-		limparBtn.addMouseListener(new MouseAdapter() {
+		btnLimpar.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				limpar();
 			}
 		});
 
-		finalizarConsultaBtn.addMouseListener(new MouseAdapter() {
+		btnFfinalizarConsulta.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (finalizarConsultaBtn.isEnabled())
+				if (btnFfinalizarConsulta.isEnabled())
 					finalizarConsulta();
 			}
 		});
@@ -156,16 +145,17 @@ public class GeraConsulta extends IInternalFrame {
 	}
 
 	private Consulta getConsultaBean() {
-		Consulta consulta = new Consulta();
-		consulta.setNome(nomeTextField.getText());
-		consulta.setCpf(cpfTextField.getApenasFigitos());
 
-		consulta.setQueixa(queixaTextArea.getText());
-		consulta.setAvaliacao(avaliacaoTextArea.getText());
-		consulta.setPrescricao(prescricaoTextArea.getText());
-		consulta.setAla((EnumAlaHospital) alaCb.getSelectedItem());
+		Consulta consulta = new Consulta();
+		consulta.setNome(txtNome.getText());
+		consulta.setCpf(txtCpf.getApenasFigitos());
+
+		consulta.setQueixa(areaQueixa.getText());
+		consulta.setAvaliacao(areaAvaliacao.getText());
+		consulta.setPrescricao(areaPrescricao.getText());
+		consulta.setAla((EnumAlaHospital) cbxAla.getSelectedItem());
 		consulta.setObservacao(obsTextField.getText());
-		
+
 		return consulta;
 	}
 
@@ -177,10 +167,10 @@ public class GeraConsulta extends IInternalFrame {
 			JOptionPane.showMessageDialog(this, msg);
 			limpar();
 			dadosDefault();
-		} catch (ControleExcption e) {
+		} catch (ControleException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, e.getMessage());
-		}  
+		}
 
 	}
 
@@ -192,41 +182,45 @@ public class GeraConsulta extends IInternalFrame {
 			JOptionPane.showMessageDialog(this, "Consulta finalizada com sucesso");
 			limpar();
 			dadosDefault();
-		} catch (ControleExcption e) {
+		} catch (ControleException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
-		}  
+		}
 
 	}
 
+	@Override
 	public void limpar() {
-		nomeTextField.setText("");
-		cpfTextField.setText("");
-		queixaTextArea.setText("");
-		avaliacaoTextArea.setText("");
+
+		txtNome.setText("");
+		txtCpf.setText("");
+		areaQueixa.setText("");
+		areaAvaliacao.setText("");
 		obsTextField.setText("");
-		alaCb.setSelectedIndex(-1);
+		cbxAla.setSelectedIndex(-1);
 		dadosDefault();
 	}
 
 	@Override
 	public void dadosDefault() {
+
 		try {
+
 			if (cControle == null)
 				cControle = new ConsultaControle();
 			Atendimento atendimento = cControle.proximoAtendimento();
 
 			if (atendimento == null) {
-				finalizarConsultaBtn.setEnabled(false);
+				btnFfinalizarConsulta.setEnabled(false);
 				return;
 			}
-			nomeTextField.setText(atendimento.getNome());
-			cpfTextField.setText(atendimento.getCpf());
-			queixaTextArea.setText(atendimento.getQueixa());
-			alaCb.setSelectedItem(atendimento.getAla());
+			txtNome.setText(atendimento.getNome());
+			txtCpf.setText(atendimento.getCpf());
+			areaQueixa.setText(atendimento.getQueixa());
+			cbxAla.setSelectedItem(atendimento.getAla());
 
-		} catch (ControleExcption e) {
+		} catch (ControleException e) {
 			JOptionPane.showMessageDialog(GeraConsulta.this, "Erro ao buscar proximo paciente: " + e.getMessage());
-		}  
+		}
 
 	}
 

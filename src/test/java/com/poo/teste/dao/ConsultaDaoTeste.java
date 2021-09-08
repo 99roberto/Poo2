@@ -1,5 +1,9 @@
 package com.poo.teste.dao;
 
+import static com.poo.teste.TesteHerlper.newConsulta;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -7,21 +11,15 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.poo.teste.TesteHerlper.newConsulta;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.poo.modelo.Consulta;
-import com.poo.modelo.dao.ConsultaDao;
 import com.poo.modelo.dao.DaoFactory;
+import com.poo.modelo.dao.IConsultaDao;
 import com.poo.modelo.dao.PersistenciaException;
 import com.poo.teste.TesteHerlper;
 
 public class ConsultaDaoTeste {
-	private ConsultaDao dao;
+
+	private IConsultaDao dao;
 	SimpleDateFormat sd = new SimpleDateFormat("dd/MM/YYYY");
 
 	@BeforeEach
@@ -33,7 +31,7 @@ public class ConsultaDaoTeste {
 	@Test
 	public void salvarAndBuscarPorCpf() throws PersistenciaException {
 		Consulta c = newConsulta(new Date(), "00000000001");
-		dao.salva(c);
+		dao.salvarConsulta(c);
 		List<Consulta> c2 = dao.buscarPorCpf(c.getCpf());
 		assertNotNull(c2);
 		assertEquals(c2.size(), 1);
@@ -44,7 +42,7 @@ public class ConsultaDaoTeste {
 		Consulta c = newConsulta(new Date(), "99999999999");
 		Exception ex = null;
 		try {
-			dao.salva(c);
+			dao.salvarConsulta(c);
 		} catch (Exception e) {
 			ex = e;
 		}

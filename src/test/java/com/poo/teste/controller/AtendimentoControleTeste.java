@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.poo.controle.AtendimentoControle;
-import com.poo.controle.ControleExcption;
+import com.poo.controle.ControleException;
 import com.poo.modelo.Atendimento;
 import com.poo.modelo.Paciente;
 import com.poo.modelo.vo.AtendimentoFilaVo;
@@ -34,10 +34,10 @@ public class AtendimentoControleTeste {
 
 	@Test
 	public void buscarPacienteQueJaTemAtendimento() throws Exception {
-		ControleExcption ex = null;
+		ControleException ex = null;
 		try {
 			ctrl.buscarPaciente("00000000001");
-		} catch (ControleExcption e) {
+		} catch (ControleException e) {
 			ex = e;
 		}
 		assertNotNull(ex);
@@ -47,11 +47,11 @@ public class AtendimentoControleTeste {
 	@Test
 	public void gravarAtendimento() throws Exception {
 
-		ControleExcption ex = null;
+		ControleException ex = null;
 		try {
 			Atendimento at = TesteHerlper.newAtendimento("00000000001");
-			ctrl.gravar(at);
-		} catch (ControleExcption e) {
+			ctrl.gravarNovoAtendimento(at);
+		} catch (ControleException e) {
 			ex = e;
 		}
 		assertNotNull(ex);
@@ -70,7 +70,7 @@ public class AtendimentoControleTeste {
 		Atendimento at = TesteHerlper.newAtendimento("46748251052");
 		at.setDataSaida(null);
 		at.setPrioridade(5);
-		ctrl.gravar(at);
+		ctrl.gravarNovoAtendimento(at);
 
 		lst = ctrl.getAtendimentosPorFinalizar();
 		assertNotNull(lst);
@@ -89,7 +89,7 @@ public class AtendimentoControleTeste {
 		Atendimento at = TesteHerlper.newAtendimento("46748251052");
 		at.setDataSaida(null);
 		at.setPrioridade(5);
-		ctrl.gravar(at);
+		ctrl.gravarNovoAtendimento(at);
 
 		lst = ctrl.getPacientesInterados();
 		assertNotNull(lst);
@@ -100,7 +100,7 @@ public class AtendimentoControleTeste {
 		Atendimento at = TesteHerlper.newAtendimento("46748251052");
 		at.setDataSaida(null);
 		at.setPrioridade(5);
-		ctrl.gravar(at);
+		ctrl.gravarNovoAtendimento(at);
 
 		List<AtendimentoFilaVo> lst = ctrl.getPacientesInterados();
 		assertNotNull(lst);

@@ -3,13 +3,12 @@ package com.poo.modelo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Paciente  implements Serializable{
+public class Paciente implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L
-			;
+	private static final long serialVersionUID = 1L;
 	private String CPF;
 	private String nome;
 	private String nomeMae;
@@ -73,5 +72,4 @@ public class Paciente  implements Serializable{
 	public void setTipoSanguinio(TipoSang tipoSanguinio) {
 		this.tipoSanguinio = tipoSanguinio;
 	}
-
 }

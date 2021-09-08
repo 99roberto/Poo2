@@ -1,7 +1,8 @@
 package com.poo.teste.dao;
 
 import static com.poo.teste.TesteHerlper.newAtendimento;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -13,14 +14,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.poo.modelo.Atendimento;
-import com.poo.modelo.dao.AtendimentoDao;
 import com.poo.modelo.dao.DaoFactory;
+import com.poo.modelo.dao.IAtendimentoDao;
 import com.poo.modelo.dao.PersistenciaException;
 import com.poo.modelo.dao.SemVagaExeception;
 import com.poo.teste.TesteHerlper;
 
 public class AtendimentoDaoTeste {
-	private AtendimentoDao dao;
+
+	private IAtendimentoDao dao;
 	SimpleDateFormat sd = new SimpleDateFormat("dd/MM/YYYY");
 
 	@BeforeEach
@@ -58,8 +60,8 @@ public class AtendimentoDaoTeste {
 		List<Atendimento> lst = dao.buscarPorCpf(at.getCpf());
 		assertEquals(lst.size(), 0);
 		// salvando
-		dao.salva(at);
-		dao.salva(at2);
+		dao.salvarAtendimento(at);
+		dao.salvarAtendimento(at2);
 		// Buscando
 		lst = dao.buscarPorCpf(at.getCpf());
 
@@ -78,7 +80,7 @@ public class AtendimentoDaoTeste {
 		Atendimento aux = dao.buscarPorEntrada(at.getCpf(), at.getDataEntrada());
 		assertNull(aux);
 		// salvando
-		dao.salva(at);
+		dao.salvarAtendimento(at);
 		// buscando
 		at = dao.buscarPorEntrada(at.getCpf(), at.getDataEntrada());
 		assertNotNull(at);
@@ -91,7 +93,7 @@ public class AtendimentoDaoTeste {
 
 		assertNull(dao.buscarAtendimentoAberto(at.getCpf()));
 		// salvando
-		dao.salva(at);
+		dao.salvarAtendimento(at);
 
 		at = dao.buscarAtendimentoAberto(at.getCpf());
 		// nulo pois atendimento fechado
@@ -100,7 +102,7 @@ public class AtendimentoDaoTeste {
 
 		// fechando atendimento
 		at.setDataSaida(sd.parse("01/01/2001"));
-		dao.salva(at);
+		dao.salvarAtendimento(at);
 
 		assertNull(dao.buscarAtendimentoAberto(at.getCpf()));
 	}
@@ -113,13 +115,12 @@ public class AtendimentoDaoTeste {
 		assertEquals(0, dao.buscarPorCpf(at.getCpf()).size());
 		Exception ex = null;
 		try {
-			dao.salva(at);
+			dao.salvarAtendimento(at);
 		} catch (Exception e) {
 			ex = e;
 		}
 		assertNotNull(ex);
 		assertEquals(0, dao.buscarPorCpf(at.getCpf()).size());
 	}
-
 
 }

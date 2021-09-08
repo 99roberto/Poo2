@@ -4,6 +4,7 @@ package com.poo.visao;
  *
  */
 public class PacientesInternadosView extends FinalizarAtendimentoView {
+
 	/**
 	 * 
 	 */
@@ -17,8 +18,5 @@ public class PacientesInternadosView extends FinalizarAtendimentoView {
 	@Override
 	protected void criaBotoes() {
 	}
- 
-  
- 
 
 }

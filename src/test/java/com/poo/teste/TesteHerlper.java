@@ -1,20 +1,18 @@
 package com.poo.teste;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.poo.controle.AtendimentoControle;
-import com.poo.controle.ControleExcption;
+import com.poo.controle.ControleException;
 import com.poo.modelo.Atendimento;
 import com.poo.modelo.Consulta;
 import com.poo.modelo.EnumAlaHospital;
 import com.poo.modelo.Hospital;
 import com.poo.modelo.Paciente;
-import com.poo.modelo.dao.AtendimentoDao;
-import com.poo.modelo.dao.HospitalDao;
-import com.poo.modelo.dao.PacienteDao;
 import com.poo.modelo.dao.PersistenciaException;
+import com.poo.modelo.dao.file.HospitalDao;
+import com.poo.modelo.dao.file.PacienteDao;
 
 public class TesteHerlper {
 
@@ -52,19 +50,19 @@ public class TesteHerlper {
 		return at;
 	}
 
-	public static void seed(int qtd) throws PersistenciaException, InterruptedException, ControleExcption {
+	public static void seed(int qtd) throws PersistenciaException, InterruptedException, ControleException {
 		PacienteDao pDao = new PacienteDao();
 		AtendimentoControle ctr = new AtendimentoControle();
 		HospitalDao hDao = new HospitalDao();
 		Hospital h = new Hospital();
-		hDao.salva(h);
+		hDao.salvarHospital(h);
 		int nivel = 3;
 		for (int i = 0; i < qtd; i++) {
 			Paciente p = new Paciente();
 			p.setCPF("0000000000" + i);
 			p.setNome("Paciente " + i);
 
-			pDao.salva(p);
+			pDao.salvarPaciente(p);
 			if (i % 2 == 0)
 				continue;
 			Atendimento a = new Atendimento();
@@ -76,7 +74,7 @@ public class TesteHerlper {
 			a.setAla(i % 2 == 0 ? EnumAlaHospital.CARDIOLOGIA : EnumAlaHospital.NEUROLOGIA);
 			if (nivel > 5)
 				nivel = 3;
-			ctr.gravar(a);
+			ctr.gravarNovoAtendimento(a);
 
 		}
 

@@ -4,6 +4,7 @@ import com.poo.modelo.Atendimento;
 import com.poo.modelo.EnumAlaHospital;
 
 public class InternacaoVo {
+
 	private Atendimento atendimento;
 	private EnumAlaHospital ala = null;
 	private int posicaoFilaAla = 0;
@@ -56,6 +57,4 @@ public class InternacaoVo {
 	public void setLeitosVagos(int leitosVagos) {
 		this.leitosVagos = leitosVagos;
 	}
-	
-	
 }

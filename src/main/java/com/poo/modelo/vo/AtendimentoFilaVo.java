@@ -3,13 +3,14 @@ package com.poo.modelo.vo;
 import com.poo.modelo.Atendimento;
 
 public class AtendimentoFilaVo {
+
 	private Atendimento atendimento;
-	private String situacao;
+	private String descSituacaoAtendimento;
 
 	public AtendimentoFilaVo(Atendimento atendimento, String situacao) {
 		super();
 		this.atendimento = atendimento;
-		this.situacao = situacao;
+		this.descSituacaoAtendimento = situacao;
 	}
 
 	public Atendimento getAtendimento() {
@@ -20,12 +21,11 @@ public class AtendimentoFilaVo {
 		this.atendimento = atendimento;
 	}
 
-	public String getSituacao() {
-		return situacao;
+	public String getDescSituacaoAtendimento() {
+		return descSituacaoAtendimento;
 	}
 
-	public void setSituacao(String situacao) {
-		this.situacao = situacao;
+	public void setDescSituacaoAtendimento(String situacao) {
+		this.descSituacaoAtendimento = situacao;
 	}
-
 }

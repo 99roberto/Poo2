@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 
-import com.poo.controle.ControleExcption;
+import com.poo.controle.ControleException;
 import com.poo.controle.PacienteControle;
 import com.poo.modelo.Paciente;
 import com.poo.modelo.TipoSang;
@@ -26,21 +26,28 @@ import com.poo.visao.componentes.MTextField;
 import net.miginfocom.swing.MigLayout;
 
 public class GerenciarPaciente extends IInternalFrame {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private MTextField nomeTextField;
-	private MTextField nomePaiTextField;
-	private MTextField EnderecoTextField;
-	private MTextField nomeMaeTextField;
+
 	private PacienteControle controle = new PacienteControle();
-	private MTextField cpfTextField;
-	private MDateField nascimentoTextField;
-	private JButton limparBtn;
-	private JButton cadastrarBtn;
-	private JComboBox<TipoSang> tipoSanguineoComboBox;
+
 	private JPanel panelForm;
+
+	private MTextField txtNome;
+	private MTextField txtNomePai;
+	private MTextField txtEndereco;
+	private MTextField txtNomeMae;
+	private MTextField txtCpf;
+
+	private MDateField txtDtaNacimento;
+
+	private JComboBox<TipoSang> cmbTipoSanguineo;
+
+	private JButton btnLimpar;
+	private JButton btnCadastrar;
 
 	@Override
 	public String getInternalTitle() {
@@ -72,25 +79,25 @@ public class GerenciarPaciente extends IInternalFrame {
 		JLabel enderecoLabel = new JLabel("Endere\u00E7o");
 		panelForm.add(enderecoLabel, "flowx,cell 1 5 3 1,growy");
 
-		EnderecoTextField = new MTextField();
-		panelForm.add(EnderecoTextField, "cell 1 5 3 1,grow");
-		EnderecoTextField.setColumns(20);
+		txtEndereco = new MTextField();
+		panelForm.add(txtEndereco, "cell 1 5 3 1,grow");
+		txtEndereco.setColumns(20);
 
-		nomeMaeTextField = new MTextField();
-		nomeMaeTextField.setColumns(20);
+		txtNomeMae = new MTextField();
+		txtNomeMae.setColumns(20);
 
-		nomePaiTextField = new MTextField();
-		nomePaiTextField.setColumns(20);
+		txtNomePai = new MTextField();
+		txtNomePai.setColumns(20);
 
-		cpfTextField = new MTextField("###.###.###-##");
+		txtCpf = new MTextField("###.###.###-##");
 
-		nomeTextField = new MTextField();
-		nomeTextField.setColumns(20);
+		txtNome = new MTextField();
+		txtNome.setColumns(20);
 
-		panelForm.add(cpfTextField, "flowx,cell 1 1,grow");
-		panelForm.add(nomeTextField, "cell 3 1,grow");
-		panelForm.add(nomeMaeTextField, "cell 1 3,grow");
-		panelForm.add(nomePaiTextField, "cell 3 3,grow");
+		panelForm.add(txtCpf, "flowx,cell 1 1,grow");
+		panelForm.add(txtNome, "cell 3 1,grow");
+		panelForm.add(txtNomeMae, "cell 1 3,grow");
+		panelForm.add(txtNomePai, "cell 3 3,grow");
 
 		JLabel nascimentoLabel = new JLabel("Nascimento");
 		panelForm.add(nascimentoLabel, "flowx,cell 1 7,growy");
@@ -98,40 +105,43 @@ public class GerenciarPaciente extends IInternalFrame {
 		JLabel tipoSanguineoLabel = new JLabel("Tipo Sangu\u00EDneo");
 		panelForm.add(tipoSanguineoLabel, "flowx,cell 3 7,alignx left,growy");
 
-		nascimentoTextField = new MDateField();
-		panelForm.add(nascimentoTextField, "cell 1 7,grow");
+		txtDtaNacimento = new MDateField();
+		panelForm.add(txtDtaNacimento, "cell 1 7,grow");
 
-		tipoSanguineoComboBox = new JComboBox<TipoSang>();
-		tipoSanguineoComboBox.setModel(new DefaultComboBoxModel<TipoSang>(TipoSang.list()));
-		panelForm.add(tipoSanguineoComboBox, "cell 3 7,grow");
+		cmbTipoSanguineo = new JComboBox<TipoSang>();
+		cmbTipoSanguineo.setModel(new DefaultComboBoxModel<TipoSang>(TipoSang.list()));
+		panelForm.add(cmbTipoSanguineo, "cell 3 7,grow");
 
-		limparBtn = new MJButton("Limpar Tela");
-		cadastrarBtn = new MJButton("Cadastrar Paciente");
+		btnLimpar = new MJButton("Limpar Tela");
+		btnCadastrar = new MJButton("Cadastrar Paciente");
 
-		addRodaPe(cadastrarBtn);
-		addRodaPe(limparBtn);
-		
+		addRodaPe(btnCadastrar);
+		addRodaPe(btnLimpar);
+
 		return panelForm;
 	}
 
 	@Override
 	protected void addEvents() {
-		cpfTextField.addFocusListener(new FocusAdapter() {
+
+		txtCpf.addFocusListener(new FocusAdapter() {
+
 			@Override
 			public void focusLost(FocusEvent e) {
-
 				buscar();
 			}
 		});
 
-		cadastrarBtn.addMouseListener(new MouseAdapter() {
+		btnCadastrar.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				gravar();
 			}
 		});
 
-		limparBtn.addMouseListener(new MouseAdapter() {
+		btnLimpar.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				limpar();
@@ -141,18 +151,19 @@ public class GerenciarPaciente extends IInternalFrame {
 	}
 
 	private void buscar() {
-		nomeTextField.setEditable(false);
-		final String cpf = cpfTextField.getApenasFigitos();
+
+		txtNome.setEditable(false);
+		final String cpf = txtCpf.getApenasFigitos();
 		SwingWorker<Paciente, Void> mySwingWorker = new SwingWorker<Paciente, Void>() {
 
 			@Override
 			protected Paciente doInBackground() throws Exception {
 				try {
 					return controle.buscar(cpf);
-				} catch (ControleExcption e) {
+				} catch (ControleException e) {
 					JOptionPane.showMessageDialog(GerenciarPaciente.this, e.getMessage());
 				} finally {
-					nomeTextField.setEditable(true);
+					txtNome.setEditable(true);
 				}
 				return null;
 			}
@@ -164,19 +175,19 @@ public class GerenciarPaciente extends IInternalFrame {
 					Paciente paciente = get();
 					if (paciente == null)
 						return;
-					nomeTextField.setText(paciente.getNome());
-					nomeMaeTextField.setText(paciente.getNomeMae());
-					nomePaiTextField.setText(paciente.getNomePai());
-					EnderecoTextField.setText(paciente.getEndereco());
-					nascimentoTextField.setDate(paciente.getNascimento());
-					tipoSanguineoComboBox.setSelectedItem(paciente.getTipoSanguinio());
+					txtNome.setText(paciente.getNome());
+					txtNomeMae.setText(paciente.getNomeMae());
+					txtNomePai.setText(paciente.getNomePai());
+					txtEndereco.setText(paciente.getEndereco());
+					txtDtaNacimento.setDate(paciente.getNascimento());
+					cmbTipoSanguineo.setSelectedItem(paciente.getTipoSanguinio());
 
 					panelForm.repaint();
 					JOptionPane.showMessageDialog(GerenciarPaciente.this, "Paciente: " + paciente.getNome());
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(GerenciarPaciente.this, e.getMessage());
 				} finally {
-					nomeTextField.setEditable(true);
+					txtNome.setEditable(true);
 				}
 			}
 		};
@@ -186,34 +197,39 @@ public class GerenciarPaciente extends IInternalFrame {
 
 	private void gravar() {
 
-		nomeTextField.setEditable(false);
-		Paciente paciente = new Paciente();
-		paciente.setNome(nomeTextField.getText());
-		paciente.setCPF(cpfTextField.getApenasFigitos());
-		paciente.setNomeMae(nomeMaeTextField.getText());
-		paciente.setNomePai(nomePaiTextField.getText());
-		paciente.setEndereco(EnderecoTextField.getText());
-		paciente.setNascimento(nascimentoTextField.getDate());
-		paciente.setTipoSanguinio((TipoSang) tipoSanguineoComboBox.getSelectedItem());
+		txtNome.setEditable(false);
+		Paciente paciente = obtemPaciente();
 		try {
-			controle.gravar(paciente);
+			controle.gravarPaciente(paciente);
 			JOptionPane.showMessageDialog(this, "Paciente cadastrado com sucesso");
-		} catch (ControleExcption e) {
+		} catch (ControleException e) {
 			JOptionPane.showMessageDialog(GerenciarPaciente.this, e.getMessage());
 		}
-	 
 
 	}
 
+	private Paciente obtemPaciente() {
+
+		Paciente paciente = new Paciente();
+		paciente.setNome(txtNome.getText());
+		paciente.setCPF(txtCpf.getApenasFigitos());
+		paciente.setNomeMae(txtNomeMae.getText());
+		paciente.setNomePai(txtNomePai.getText());
+		paciente.setEndereco(txtEndereco.getText());
+		paciente.setNascimento(txtDtaNacimento.getDate());
+		paciente.setTipoSanguinio((TipoSang) cmbTipoSanguineo.getSelectedItem());
+		return paciente;
+	}
+
+	@Override
 	public void limpar() {
-		nomeTextField.setText("");
-		nomeMaeTextField.setText("");
-		nomePaiTextField.setText("");
-		EnderecoTextField.setText("");
-		nascimentoTextField.setDate(null);
-		tipoSanguineoComboBox.setSelectedIndex(0);
-		cpfTextField.setText("");
 
+		txtNome.setText("");
+		txtNomeMae.setText("");
+		txtNomePai.setText("");
+		txtEndereco.setText("");
+		txtDtaNacimento.setDate(null);
+		cmbTipoSanguineo.setSelectedIndex(0);
+		txtCpf.setText("");
 	}
-
 }

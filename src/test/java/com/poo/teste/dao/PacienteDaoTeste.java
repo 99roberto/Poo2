@@ -8,16 +8,15 @@ import java.text.SimpleDateFormat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.poo.modelo.Paciente;
 import com.poo.modelo.dao.DaoFactory;
-import com.poo.modelo.dao.PacienteDao;
+import com.poo.modelo.dao.IPacienteDao;
 import com.poo.modelo.dao.PersistenciaException;
 import com.poo.teste.TesteHerlper;
 
 public class PacienteDaoTeste {
-	private PacienteDao dao;
+
+	private IPacienteDao dao;
 	SimpleDateFormat sd = new SimpleDateFormat("dd/MM/YYYY");
 
 	@BeforeEach
@@ -29,7 +28,7 @@ public class PacienteDaoTeste {
 	@Test
 	public void salvarAndBuscarPorCpf() throws PersistenciaException {
 		Paciente p = newPaciente("467482510524");
-		dao.salva(p);
+		dao.salvarPaciente(p);
 		Paciente p2 = dao.buscarPorCpf(p.getCPF());
 		assertNotNull(p2);
 	}

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import com.poo.visao.componentes.IInternalFrame;
 
 public class FrameEmpity extends IInternalFrame {
+
 	/**
 	 * 
 	 */
@@ -20,6 +21,7 @@ public class FrameEmpity extends IInternalFrame {
 
 	@Override
 	protected JPanel getPanelForm() throws Exception {
+
 		JPanel pn = new JPanel();
 		pn.add(new JLabel("Empity"), BorderLayout.NORTH);
 		return pn;

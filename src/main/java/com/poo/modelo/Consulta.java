@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Consulta implements Serializable, Comparable<Consulta> {
+
 	/**
 	 * 
 	 */
@@ -11,19 +12,19 @@ public class Consulta implements Serializable, Comparable<Consulta> {
 	private String cpf;
 	private String nome;
 
-	// i) a descrição do histórico de saúde (queixa)
+	// i) a descriÃ§Ã£o do histÃ³rico de saÃºde (queixa)
 	private String queixa;
-	// i) avaliação do médico,
+	// i) avaliaÃ§Ã£o domÃ©dico,
 	private String avaliacao;
-	// iii) medicação prescrita
+	// iii) medicaÃ§Ã£o prescrita
 	private String prescricao;
-	// iv)ala para internação e
+	// iv)ala para internaÃ§Ã£o e
 	private EnumAlaHospital ala;
-	// v)observação.
+	// v)observaÃ§Ã£o.
 	private String Observacao;
-	// data e hora do término
+	// data e hora do tÃ©rmino
 	private Date dataTermino;
-	
+
 	public String getCpf() {
 		return cpf;
 	}
@@ -53,6 +54,7 @@ public class Consulta implements Serializable, Comparable<Consulta> {
 	}
 
 	public void setAvaliacao(String avaliacao) {
+
 		this.avaliacao = avaliacao;
 	}
 
@@ -80,7 +82,6 @@ public class Consulta implements Serializable, Comparable<Consulta> {
 		Observacao = observacao;
 	}
 
-	
 	public Date getDataTermino() {
 		return dataTermino;
 	}
@@ -91,12 +92,12 @@ public class Consulta implements Serializable, Comparable<Consulta> {
 
 	@Override
 	public int compareTo(Consulta arg0) {
-		if(getDataTermino()!=null && arg0.getDataTermino()!=null) {
+
+		if (getDataTermino() != null && arg0.getDataTermino() != null) {
 			return getDataTermino().compareTo(arg0.getDataTermino());
 		}
-			
+
 		return 0;
 	}
-
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilaAtendimento implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -66,12 +67,12 @@ public class FilaAtendimento implements Serializable {
 		return fila1.size() + fila2.size() + fila3.size() + fila4.size();
 	}
 
-	public void add(int fila, String cpf)  {
+	public void add(int fila, String cpf) {
 		mapFilas.get(fila - 1).add(cpf);
 		System.err.println();
 	}
 
-	public List<String> getFila(int fila)  {
+	public List<String> getFila(int fila) {
 		return mapFilas.get(fila - 1);
 	}
 

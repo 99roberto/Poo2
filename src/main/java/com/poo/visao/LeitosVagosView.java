@@ -19,11 +19,14 @@ import com.poo.visao.componentes.IInternalFrame;
 import com.poo.visao.componentes.MPanelCenter;
 
 public class LeitosVagosView extends IInternalFrame {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private HospitalControle controle = new HospitalControle();
+
 	private MPanelCenter panelForm;
 	private DefaultListModel<AlaHospial> listaModel;
 	private JList<AlaHospial> lista;
@@ -43,20 +46,20 @@ public class LeitosVagosView extends IInternalFrame {
 		lista = new JList<AlaHospial>(listaModel);
 		panelForm.add(lista, BorderLayout.CENTER);
 		lista.setBorder(new EmptyBorder(10, 10, 10, 10));
-		
+
 		lista.setCellRenderer(new ListCellRenderer<AlaHospial>() {
 
 			@Override
-			public Component getListCellRendererComponent(JList<? extends AlaHospial> arg0, AlaHospial alaHospial, int arg2,
-					boolean arg3, boolean arg4) {
-				 
-				JLabel lb = new JLabel(alaHospial.getAla()+": "+alaHospial.leitosVagos());
+			public Component getListCellRendererComponent(JList<? extends AlaHospial> arg0, AlaHospial alaHospial,
+					int arg2, boolean arg3, boolean arg4) {
+
+				JLabel lb = new JLabel(alaHospial.getAla() + ": " + alaHospial.obterLeitosVagos());
 				lb.setFont(new Font("Bold", Font.PLAIN, 14));
 				lb.setBorder(new EmptyBorder(10, 10, 10, 10));
-				return  lb;
+				return lb;
 			}
 		});
-		
+
 		return panelForm;
 	}
 

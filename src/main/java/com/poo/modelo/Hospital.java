@@ -6,20 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Hospital implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	// Cardiologia com 3 leitos
 	private AlaHospial alaCardiologia = new AlaHospial(EnumAlaHospital.CARDIOLOGIA, 3);
-	// Pediátrica com 6 leitos
+	// Pediï¿½trica com 6 leitos
 	private AlaHospial alaPediatrica = new AlaHospial(EnumAlaHospital.PEDIATRICA, 6);
 	// Pneumologia com 4 leitos
 	private AlaHospial alaPneumologia = new AlaHospial(EnumAlaHospital.PNEUMOLOGIA, 4);
 	// Neurologia com 6 leitos
 	private AlaHospial alaNeurologia = new AlaHospial(EnumAlaHospital.NEUROLOGIA, 6);
 	private HashMap<EnumAlaHospital, AlaHospial> mAlas;
-	private FilaAtendimento fAtendimento = new FilaAtendimento();
+	private FilaAtendimento filaAtendimento = new FilaAtendimento();
 
 	private int capacidadeEnfermagem = 10;
 
@@ -70,12 +71,12 @@ public class Hospital implements Serializable {
 		this.alaNeurologia = alaNeurologia;
 	}
 
-	public FilaAtendimento getfAtendimento() {
-		return fAtendimento;
+	public FilaAtendimento getFilaAtendimento() {
+		return filaAtendimento;
 	}
 
-	public void setfAtendimento(FilaAtendimento fAtendimento) {
-		this.fAtendimento = fAtendimento;
+	public void setFilaAtendimento(FilaAtendimento fAtendimento) {
+		this.filaAtendimento = fAtendimento;
 	}
 
 	public int getCapacidadeEnfermagem() {
@@ -105,7 +106,5 @@ public class Hospital implements Serializable {
 	public HashMap<EnumAlaHospital, AlaHospial> getmAlas() {
 		return mAlas;
 	}
-	
-	
 
 }

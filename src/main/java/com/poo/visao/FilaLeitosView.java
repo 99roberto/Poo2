@@ -1,7 +1,7 @@
 package com.poo.visao;
 
 public class FilaLeitosView extends InternacoesView {
-	
+
 	/**
 	 * 
 	 */
@@ -9,9 +9,9 @@ public class FilaLeitosView extends InternacoesView {
 
 	@Override
 	public String getInternalTitle() {
-		return "Aguardando Internação";
+		return "Aguardando InternaÃ§Ã£o";
 	}
-	
+
 	@Override
 	protected void criaBotoes() {
 	}
