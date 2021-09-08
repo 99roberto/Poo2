@@ -119,6 +119,7 @@ public class AtendimentoDaoTeste {
 		} catch (Exception e) {
 			ex = e;
 		}
+		// Não deveria salvar atendimento sem paciente
 		assertNotNull(ex);
 		assertEquals(0, dao.buscarPorCpf(at.getCpf()).size());
 	}

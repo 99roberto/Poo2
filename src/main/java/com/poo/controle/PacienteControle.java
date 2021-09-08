@@ -36,6 +36,7 @@ public class PacienteControle {
 		} catch (ControleException e) {
 			throw e;
 		} catch (PersistenciaException e) {
+			e.printStackTrace();
 			throw new ControleException("Erro ao salvar paciente: \n" + e.getMessage(), e);
 		}
 	}

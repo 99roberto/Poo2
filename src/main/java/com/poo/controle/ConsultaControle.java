@@ -69,7 +69,7 @@ public class ConsultaControle extends HospitalControle {
 		getHospital().getFilaAtendimento().remove(consulta.getCpf());
 	}
 
-	public void finalizaConsulta(Consulta consulta) throws ControleException {
+	public void finalizarConsulta(Consulta consulta) throws ControleException {
 
 		try {
 			removerFilaAtendimento(consulta);

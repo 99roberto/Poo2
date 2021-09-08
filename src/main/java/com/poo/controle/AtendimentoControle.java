@@ -63,6 +63,7 @@ public class AtendimentoControle extends HospitalControle {
 			throw new ControleException(
 					"Não temos vagas para internação na enfermaria. \nPor favor procure outro hospital", e);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ControleException("Erro ao salvar paciente: \n" + e.getMessage(), e);
 		} finally {
 			resturarHospital();

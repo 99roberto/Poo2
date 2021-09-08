@@ -17,7 +17,12 @@ public class HospitalDao extends AbstractDao<Integer, Hospital> implements IHosp
 	public Hospital get() throws PersistenciaException {
 		try {
 			HashMap<Integer, Hospital> map = lerArquivoBinario();
-			return map.get(0);
+			Hospital h = map.get(0);
+			if (h == null) {
+				h = new Hospital();
+				salvarHospital(h);
+			}
+			return h;
 		} catch (Exception e) {
 			throw new PersistenciaException("Erro ao buscar paciente", e);
 		}

@@ -41,7 +41,7 @@ public class ConsultaControleTeste {
 		//
 		assertNotNull(dao.buscarPorCpf(c.getCpf()));
 		//
-		ctrl.finalizaConsulta(c);
+		ctrl.finalizarConsulta(c);
 		List<Consulta> ax = dao.buscarPorCpf(c.getCpf());
 		assertNotNull(ax.get(0).getDataTermino());
 	}

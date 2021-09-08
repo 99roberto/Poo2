@@ -178,7 +178,7 @@ public class GeraConsulta extends IInternalFrame {
 
 		Consulta consulta = getConsultaBean();
 		try {
-			cControle.finalizaConsulta(consulta);
+			cControle.finalizarConsulta(consulta);
 			JOptionPane.showMessageDialog(this, "Consulta finalizada com sucesso");
 			limpar();
 			dadosDefault();

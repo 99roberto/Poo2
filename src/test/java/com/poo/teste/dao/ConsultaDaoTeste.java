@@ -46,6 +46,7 @@ public class ConsultaDaoTeste {
 		} catch (Exception e) {
 			ex = e;
 		}
+		// Não deveria salvar consulta sem paciente
 		assertNotNull(ex);
 		assertEquals(0, dao.buscarPorCpf(c.getCpf()));
 	}
